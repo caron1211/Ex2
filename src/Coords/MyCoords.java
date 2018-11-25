@@ -113,8 +113,18 @@ public class MyCoords implements coords_converter{
 
 	@Override
 	public boolean isValid_GPS_Point(Point3D p) {
-		// TODO Auto-generated method stub
+		
+		if ( p.x() > 90 || p.x() < -90)
 		return false;
+		
+		if ( p.y() > 180 || p.y() < -180)
+			return false;
+
+		if ( p.y() > 9000 || p.y() < -450)
+			return false;
+
+		
+		return true;
 	}
 
 
