@@ -65,6 +65,15 @@ public class MyCoords implements coords_converter{
 
 	}
 
+	public Point3D toMeterGps(Point3D gps) {
+		Point3D zero = new Point3D(0,0,0);
+		double x_rad = Math.toRadians(gps.x());
+		double y_rad = Math.toRadians(gps.y());
+		double x = toMeterLat(x_rad);
+		double y = toMeterLon(zero,y_rad);
+		Point3D ans = new Point3D(x,y,gps.z());
+		return ans;
+	}
 
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
@@ -89,27 +98,76 @@ public class MyCoords implements coords_converter{
 	@Override
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
 		double[] arr = new double[3];
-		double dx = gps1.x() - gps0.x();
-		double dy = gps1.y() - gps0.y();
-		double dz = gps1.z() - gps0.z();
+		
 		double dis = distance3d(gps0,gps1);
-		double alph = Math.atan(Math.abs(dy/dx));
-		double azimuth = Integer.MAX_VALUE;
-		
-		if ( dx > 0 && dy >0)
-			   azimuth= alph;
-		else if ( dx >0 && dy<0)
-			azimuth= 360-alph;
-		else if ( dx <0 && dy >0)
-			azimuth= 180-alph;
-		else if ( dx<0 && dy<0)
-			azimuth= 180+alph;
-		
-		arr[0] = azimuth;
-		arr[1] = dz;
 		arr[2] = dis;
+		
+		//Azimuth
+		double lat1 = Math.toRadians(gps0.x());
+		double lat2 = Math.toRadians(gps1.x());
+		double dy = Math.toRadians(gps1.y()-gps0.y());
+		double y = Math.sin(dy) * Math.cos(lat2);
+		double x = Math.cos(lat1)*Math.sin(lat2) -Math.sin(lat1)*Math.cos(lat2)*Math.cos(dy);
+		double alpha = Math.atan2(y, x);
+		double azimuth = (Math.toDegrees(alpha)+360)%360;
+		arr[0] = azimuth;
+		
+		//Elevation
+		double dx = lat2 - lat1;
+		double dz = gps1.z() - gps0.z();
+		double u = lat1*dx + Math.toRadians(gps0.y())*dy + gps0.z()*dz;
+		double elevation = Math.atan(u/Math.sqrt(y*y+x*x));
+		arr[1] = elevation;
+		
 		return arr;
 	}
+	
+	
+//	@Override
+//	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
+//		double[] arr = new double[3];
+//		
+//		double dis = distance3d(gps0,gps1);
+//		arr[2] = dis;
+//		
+//		Point3D gps0_meter = toMeterGps(gps0);
+//		Point3D gps1_meter = toMeterGps(gps1);
+////		double dx = gps1_meter.x() - gps0_meter.x();
+////		double dy = gps1_meter.y() - gps0_meter.y();
+//		double dx = gps1.x() - gps0.x();
+//		double dy = gps1.y() - gps0.y();;
+//		double dz = gps1.z() - gps0.z();
+//		
+//		double azimuth=Math.atan2(Math.sin(dy)*Math.cos(gps1.x()),(Math.cos(gps0.x())*Math.sin(gps1.x())) 
+//				-(Math.sin(gps0.x())*Math.cos(gps1.x())*Math.cos(dy)));
+//
+//		
+////		double alph = Math.atan(Math.abs(dy/dx));
+////		System.out.println("alph"+alph);
+////		double azimuth = Integer.MAX_VALUE;
+////		
+////		if ( dx > 0 && dy >0)
+////			   azimuth= alph;
+////		else if ( dx >0 && dy<0)
+////			azimuth= 360-alph;
+////		else if ( dx <0 && dy >0)
+////			azimuth= 180-alph;
+////		else if ( dx<0 && dy<0)
+////			azimuth= 180+alph;
+////		
+//		
+//		arr[0] = Math.toDegrees(azimuth);
+//
+////
+////		double temp = (gps0.x()*dx + gps0.y()*dy + gps0.z()*dz);
+////		double deno = Math.sqrt( (gps0.x()*gps0.x()+ gps0.y()*gps0.y()+ gps0.z()*gps0.z() )*( dx*dx+dy*dy+dz*dz)) ;
+////		double elevation = Math.acos(temp/deno);
+////		
+//		
+//		
+//		arr[1] = 0;
+//		return arr;
+//	}
 
 	@Override
 	public boolean isValid_GPS_Point(Point3D p) {
