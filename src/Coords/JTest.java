@@ -3,13 +3,15 @@ package Coords;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import Geom.Point3D;
 
 class JTest {
-
+	Point3D a = new Point3D(100,170,0); 
+	Point3D b = new Point3D(150,120,0); 
 	Point3D p = new Point3D(32.103315,35.209039,670); // 9
 	Point3D p1 = new Point3D(32.106352,35.205225,650); // houmos
 	Point3D v =  new Point3D(344,-400,0); // meter
@@ -52,6 +54,20 @@ class JTest {
 		assertTrue(exceped.equals(actual));
 		
 	}
-
+	
+	@Test
+	void  azimuth_elevation_dist() {
+		MyCoords c = new MyCoords();
+		double[] arr  = c.azimuth_elevation_dist(p, p1);
+		System.out.println(Arrays.toString(arr));
+		
+	}
+	@Test
+	void toMeterGps()
+	{
+		MyCoords c = new MyCoords();
+		Point3D ansMeter = c.toMeterGps(p1);
+		System.out.println("meter:"+ansMeter);
+	}
 
 }
