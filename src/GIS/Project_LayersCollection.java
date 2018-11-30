@@ -9,7 +9,7 @@ public class Project_LayersCollection extends ArrayList<GIS_layer> implements GI
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	ArrayList<GIS_layer> layers;
+    ArrayList<GIS_layer> layers;
 
 	public Project_LayersCollection()
 	{

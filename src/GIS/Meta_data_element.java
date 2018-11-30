@@ -13,6 +13,7 @@ import Geom.Point3D;
 public class Meta_data_element implements Meta_data {
 
 	String MAC;
+	
 	String SSID;
 	String AuthMode;
 	String FirstSeen;
@@ -56,5 +57,24 @@ public class Meta_data_element implements Meta_data {
 	public String toString()
 	{
 		return MAC+","+SSID+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+AccuracyMeters+","+Type;
+	}
+	
+	public String getFirstSeen() {
+		return FirstSeen;
+	}
+	public void setFirstSeen(String firstSeen) {
+		FirstSeen = firstSeen;
+	}
+	public String getMAC() {
+		return MAC;
+	}
+	public void setMAC(String mAC) {
+		MAC = mAC;
+	}
+	public String getSSID() {
+		return SSID;
+	}
+	public void setSSID(String sSID) {
+		SSID = sSID;
 	}
 }

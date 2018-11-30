@@ -37,9 +37,8 @@ public class CsvArrayList {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args)
-	{
-		String fileName = "E:\\שנה ב\\OOP\\מטלות\\Ex2\\Ex2\\data\\WigleWifi_20171203085618.csv";
-		CsvArrayList a = new CsvArrayList(fileName);
+	public ArrayList<String[]> getLines() {
+		return Lines;
 	}
+	
 }
