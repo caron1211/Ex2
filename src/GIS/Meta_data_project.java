@@ -7,15 +7,30 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import Geom.Point3D;
-
+/**
+*
+* this class return the meta data of the project
+* 
+* @author Netanel
+* @author Carmel
+*
+*/
 public class Meta_data_project implements Meta_data{
 
 	ArrayList<GIS_layer> layers;
 	
+	/**
+	 * construcor
+	 * @param layers
+	 */
 	public Meta_data_project(ArrayList<GIS_layer> layers)
 	{
 		this.layers = layers;
 	}
+	
+	/**
+	 *  return the time of creating this object
+	 */
 	@Override
 	public long getUTC() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -25,6 +40,9 @@ public class Meta_data_project implements Meta_data{
 			return millis;
 	}
 
+	/**
+	 * return collection of all layers meta data
+	 */
 	public String toString()
 	{
 		String allLayersMetaData = "";

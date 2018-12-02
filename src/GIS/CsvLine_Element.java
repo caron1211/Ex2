@@ -46,12 +46,18 @@ public class CsvLine_Element implements GIS_element{
 		return p;
 	}
 
+	/**
+	 * return Meta_data of this element 
+	 */
 	@Override
 	public Meta_data getData() {
 		Meta_data meta_data = new Meta_data_element(MAC,SSID,AuthMode,FirstSeen,Channel,RSSI,AccuracyMeters,Type);
 		return meta_data;
 	}
 
+	/**
+	 * move this point3D according vec
+	 */
 	@Override
 	public void translate(Point3D vec) {
 		MyCoords mc = new MyCoords(); 

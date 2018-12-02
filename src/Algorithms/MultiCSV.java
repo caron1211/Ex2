@@ -9,11 +9,24 @@ import GIS.CsvLine_Element;
 import GIS.GIS_element;
 import GIS.Layer_ElementsCollection;
 import GIS.Project_LayersCollection;
-
+/**
+ * this class create object that contain project(any project is collection of layers) and create kml file.
+ * 
+ * @author Netanel
+ * @author Carmel
+ *
+ */
 public class MultiCSV {
 
 	Project_LayersCollection project;
 	
+	/**
+	 * this constructor accept file name and build kml file. the file or the folder may contain various type
+	 * of files so that create kml file then consist from csv file we should scan only csv file, after that 
+	 * any csv file passing convert to layer. finally, all layers that created add to project(of this).
+	 * 
+	 * @param fileName
+	 */
 	public MultiCSV(String fileName)
 	{
 		this.project = new Project_LayersCollection(); 
@@ -25,6 +38,10 @@ public class MultiCSV {
 		return project;
 	}
 
+	/**
+	 * 
+	 * @param file
+	 */
 	private void fillFilesRecursively(File file) {
 		if (file.isFile() ) {
 			if(file.getName().contains(".csv"))
@@ -48,7 +65,10 @@ public class MultiCSV {
 			}
 		}
 }
-	
+	/**
+	 * 
+	 * @return true   if success to create kml file
+	 */
 	public boolean writeFileKML()
 	{
 		boolean ans = false;

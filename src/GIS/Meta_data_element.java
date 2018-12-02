@@ -22,6 +22,17 @@ public class Meta_data_element implements Meta_data {
 	String AccuracyMeters;
 	String Type;
 	
+	/**
+	 * constructor 
+	 * @param MAC
+	 * @param SSID
+	 * @param AuthMode
+	 * @param FirstSeen
+	 * @param Channel
+	 * @param RSSI
+	 * @param AccuracyMeters
+	 * @param Type
+	 */
 	public Meta_data_element(String MAC,String SSID,String AuthMode,String FirstSeen,String Channel,String RSSI,String AccuracyMeters,String Type)
 	{
 		this.MAC = MAC;
@@ -33,6 +44,10 @@ public class Meta_data_element implements Meta_data {
 		this.AccuracyMeters = AccuracyMeters;
 		this.Type = Type; 
 	}
+	
+	/**
+	 * return the sum on millisecond from 1970 since the time this element created   
+	 */
 	@Override
 	public long getUTC() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);

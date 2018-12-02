@@ -6,11 +6,22 @@ import java.util.ArrayList;
 
 import Algorithms.MultiCSV;
 import GIS.Project_LayersCollection;
-
+/**
+ * this class take csv file and convert it to kml file
+ * 
+ * @author Netanel
+ * @author Carmel
+ *
+ */
 
 public class Csv2kml {
 
-	public static boolean writeFileKML( String file)
+	/**
+	 * return true if success to create kml file, if the file it is csv file try to convert and return true if success.   
+	 * @param file
+	 * @return
+	 */
+	public static boolean writeFileKML(String file)
 	{
 		boolean ans = false;
 		File _file = new File(file);
@@ -27,10 +38,5 @@ public class Csv2kml {
 			}
 		}
 		return ans;
-	}
-	public static void main(String[] args) {
-
-		System.out.println(Csv2kml.writeFileKML("test\\1\\WigleWifi_20171201110209.csv"));
-
 	}
 }

@@ -51,7 +51,7 @@ class MyCoordsTest {
 	void  vector3D() {
 		MyCoords c = new MyCoords();
 		Point3D actual =c.vector3D(p,p1);
-		Point3D exceped = new Point3D(337.69899206128815,-359.24920693881893,-20.0);
+		Point3D exceped = new Point3D(337.6989920612881,-359.24920693881893,-20.0);
 		assertTrue(exceped.equals(actual));
 
 	}
@@ -59,7 +59,7 @@ class MyCoordsTest {
 	void  azimuth_elevation_dist() {
 		MyCoords c = new MyCoords();
 		double[] actual  = c.azimuth_elevation_dist(p, p1);
-		double[] exceped = {313.2304203264989, -2.322852232927616, 493.0523318324134 };
+		double[] exceped = {313.23042032646896, -2.322852232927616, 493.05233183241336 };
 		boolean ans =Arrays.equals(actual, exceped);
 		assertTrue(ans);
 		

@@ -6,11 +6,21 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import Geom.Point3D;
-
+/**
+ * this class return the meta data of the layer
+ * 
+ * @author Netanel
+ * @author Carmel
+ *
+ */
 public class Meta_data_layer implements Meta_data{
 
 	ArrayList<GIS_element> elements;
 	
+	/**
+	 * constructor
+	 * @param elements
+	 */
 	public Meta_data_layer(ArrayList<GIS_element> elements)
 	{
 		this.elements = elements;
