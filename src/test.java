@@ -4,7 +4,7 @@ public class test {
 
 	public static void main(String[] args) {
 
-		MultiCSV mul = new MultiCSV("C:\\Users\\caron\\Desktop\\data");
+		MultiCSV mul = new MultiCSV("test\\1");
 		mul.writeFileKML();
 	}
 

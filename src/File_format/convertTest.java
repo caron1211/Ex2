@@ -23,21 +23,36 @@ import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
 import de.micromata.opengis.kml.v_2_2_0.Point;
 import de.micromata.opengis.kml.v_2_2_0.Style;
-
+/**
+ * This class create kml file from Project_LayersCollection
+ *  that contains the points, their names, and the times.
+ * @author Netanel
+ * @author Carmel
+ *
+ */
 
 public class convertTest {
 
 	private Project_LayersCollection project;
 
+	/**
+	 * This cnstructor accept Project_LayersCollection 
+	 * @param project
+	 */
 	public convertTest ( Project_LayersCollection project) {
 		this.project = project;
 	}
 
+	/**
+	 * This method create a kml file 
+	 * @throws FileNotFoundException
+	 */
 	public void convert () throws FileNotFoundException {
 
 		final Kml kml = new Kml();
 		Document doc = kml.createAndSetDocument().withName("project").withOpen(true);
 
+		// create a Folder
 		Folder folder = doc.createAndAddFolder();
 		folder.withName("Continents with Earth's surface").withOpen(true);
 
@@ -46,17 +61,19 @@ public class convertTest {
 
 			for (int j=0; j<layer.size(); j++) {
 				CsvLine_Element element = (CsvLine_Element) layer.get(j);
-
-				long t = ((Meta_data_element)element.getData()).getUTC();
-				    SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSSXXX");
-				    String dateString = formatter.format(new Date(t));
 				
+				// Convert from long to String
+				long t = ((Meta_data_element)element.getData()).getUTC();
+				SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.SSSXXX");
+				
+				String dateString = formatter.format(new Date(t));
 				String name = ((Meta_data_element)element.getData()).getSSID();
-			//	String time = ((Meta_data_element)element.getData()).getFirstSeen();
 				Point3D point = (Point3D) element.getGeom();
 
+				// create Placemark elements
 				createPlacemark(doc,folder,name,dateString,point);
-				
+
+				// save
 				kml.marshal(new File("project.kml"));
 
 
@@ -65,12 +82,20 @@ public class convertTest {
 
 	}
 
+	/**
+	 * This method  set a placemark object, with given data .The placemark is created and set to the given folder.
+	 * @param document of the KML file
+	 * @param folder to add
+	 * @param name of the placemark
+	 * @param time of the placemark
+	 * @param point point 3D with coordinates
+	 */
 
 	private static void createPlacemark(Document document, Folder folder,String name,String time, Point3D point ) {
 
 		Placemark placemark = folder.createAndAddPlacemark();
-		placemark.withName(name);
-		placemark.createAndSetPoint().addToCoordinates(point.y(),point.x(),point.z());
-		placemark.createAndSetTimeStamp().withWhen(time);
+		placemark.withName(name); // set name
+		placemark.createAndSetPoint().addToCoordinates(point.y(),point.x(),point.z()); // set coordinates
+		placemark.createAndSetTimeStamp().withWhen(time); // set time
 	}
 }

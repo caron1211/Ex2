@@ -49,14 +49,17 @@ public class MultiCSV {
 		}
 }
 	
-	public void writeFileKML()
+	public boolean writeFileKML()
 	{
+		boolean ans = false;
 		Project_LayersCollection project = this.project;
 		convertTest xml = new convertTest(project);
 		try {
 			xml.convert();
+			ans = true; 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		return ans;
 	}
 }

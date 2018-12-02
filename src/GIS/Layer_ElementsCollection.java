@@ -20,4 +20,8 @@ public class Layer_ElementsCollection extends ArrayList<GIS_element> implements 
 		Meta_data meta_data = new Meta_data_layer(elements);
 		return meta_data;
 	}
+	public ArrayList<GIS_element> getElements()
+	{
+		return this.elements;
+	}
 }
